@@ -9,3 +9,6 @@ Coordinates
 
 
 """
+from config import *
+
+

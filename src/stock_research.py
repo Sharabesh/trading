@@ -1,5 +1,5 @@
 """
-Utilities to select stocks to invest into based on relevanec
+Utilities to select stocks to invest into based on relevance
 
 
 """
