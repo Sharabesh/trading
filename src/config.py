@@ -7,8 +7,9 @@ Initializes control logic Alpaca,
 
 
 """
-import alpaca_trade_api as tradeapi
+import alpaca_trade_api as tradeapi # type: ignore
 import os
+from variable_typing import *
 
 # Initialize keys from the OS environment
 try:
@@ -19,13 +20,15 @@ except:
     exit(-1)
 
 
+
 #Configures the BASE_URL to issue trading calls to
 PAPER_BASE_URL  = "https://paper-api.alpaca.markets/"
 REAL_BASE_URL =  "https://api.alpaca.markets/"
 
+# Which URL is actually going to be used by application
+BASE_URL = PAPER_BASE_URL
 
-
-api = tradeapi.REST(KEY_ID, ALPACA_SECRET_KEY, base_url=PAPER_BASE_URL)
+api = tradeapi.REST(KEY_ID, ALPACA_SECRET_KEY, base_url=BASE_URL)
 account = api.get_account()
 
 print(f"ACCOUNT STATUS IS {account.status}")

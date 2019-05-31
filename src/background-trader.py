@@ -16,7 +16,7 @@ from alpaca_trade_api import StreamConn
 polygon_data = api.polygon
 
 
-conn = StreamConn()
+conn = StreamConn(KEY_ID, ALPACA_SECRET_KEY, base_url=BASE_URL)
 
 
 @conn.on(r'account_updates')
@@ -30,7 +30,7 @@ async def on_account_updates(conn, channel, account):
 
 
 @conn.on(r'^AM.')
-def on_bars(conn, channel, bar):
+async def on_bars(conn, channel, bar):
     """
     Triggers on price changes through the Polygon API.
     Bar represents the change you are being notified for
@@ -40,3 +40,6 @@ def on_bars(conn, channel, bar):
 
 # Connects to ALPACA and Polygon for price updates
 conn.run(['account_updates', 'AM.*'])
+
+
+
