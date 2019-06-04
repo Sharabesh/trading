@@ -47,7 +47,7 @@ def issue_market_buy(symbol: str,
     :param time_till_cancellation: how long the order is good for
     :return: boolean for success of the operation
     """
-    resp: OrderType = __issue_order(symbol,
+    resp: OrderResponseType = __issue_order(symbol,
                                     quantity,
                                     PurchaseType.BUY,
                                     OrderType.MARKET,
@@ -139,7 +139,6 @@ def issue_stop_limit_sell(symbol: str,
 
 
 """ Private helper methods, do not use directly outside the file"""
-# PRIVATE METHOD DO NOT USE DIRECTLY
 def __issue_order(symbol: str,
                   quantity: int,
                   side: PurchaseType,
