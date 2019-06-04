@@ -32,30 +32,31 @@ class TimeType(Enum):
     DEFAULT = 'day' # default if time is not otherwise specified
 
 class PurchaseType(Enum):
-
     SELL = 'sell'
     BUY = 'buy'
 
-OrderResponseType = TypedDict('OrderResponseType', {
-  "id": str, # "904837e3-3b76-47ec-b432-046db621571b",
-  "client_order_id": str, #  "904837e3-3b76-47ec-b432-046db621571b",
-  "created_at": str, # "2018-10-05T05:48:59Z",
-  "updated_at": str, #"2018-10-05T05:48:59Z",
-  "submitted_at": str, #"2018-10-05T05:48:59Z",
-  "filled_at": str, #"2018-10-05T05:48:59Z",
-  "expired_at": str, #"2018-10-05T05:48:59Z",
-  "canceled_at": str, #"2018-10-05T05:48:59Z",
-  "failed_at": str, #"2018-10-05T05:48:59Z",
-  "asset_id": str, #"904837e3-3b76-47ec-b432-046db621571b",
-  "symbol": str, #"AAPL",
-  "asset_class": str, #"us_equity",
-  "qty": str, #"15",
-  "filled_qty": str, #"0",
-  "type": str, #market",
-  "side": str, #"buy",
-  "time_in_force": str, #"day",
-  "limit_price": str, #"107.00",
-  "stop_price": str, #"106.00",
-  "filled_avg_price": str, #"106.00",
-  "status": str, #accepted"
+
+
+OrderResponseType = TypedDict('OrderResponseObj', {
+    "id": str,  # "904837e3-3b76-47ec-b432-046db621571b",
+    "client_order_id": str,  # "904837e3-3b76-47ec-b432-046db621571b",
+    "created_at": str,  # "2018-10-05T05:48:59Z",
+    "updated_at": str,  # "2018-10-05T05:48:59Z",
+    "submitted_at": str,  # "2018-10-05T05:48:59Z",
+    "filled_at": str,  # "2018-10-05T05:48:59Z",
+    "expired_at": str,  # "2018-10-05T05:48:59Z",
+    "canceled_at": str,  # "2018-10-05T05:48:59Z",
+    "failed_at": str,  # "2018-10-05T05:48:59Z",
+    "asset_id": str,  # "904837e3-3b76-47ec-b432-046db621571b",
+    "symbol": str,  # "AAPL",
+    "asset_class": str,  # "us_equity",
+    "qty": str,  # "15",
+    "filled_qty": str,  # "0",
+    "type": str,  # market",
+    "side": str,  # "buy",
+    "time_in_force": str,  # "day",
+    "limit_price": str,  # "107.00",
+    "stop_price": str,  # "106.00",
+    "filled_avg_price": str,  # "106.00",
+    "status": str,  # accepted"
 })
