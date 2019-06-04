@@ -3,3 +3,5 @@
 *.pyc
 .mypy_cache/*
 .mypy_cache
+.ipynb_checkpoints/*
+.ipynb_checkpoints
