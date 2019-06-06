@@ -159,11 +159,11 @@ def __issue_order(symbol: str,
     :return: the response object from submitting the order
     """
     args_dict = {
-        "symbol": symbol,
+        "symbol": symbol.upper(),
         "qty": quantity,
-        "side": side,
-        "type": type,
-        "time_in_force": time_till_cancellation,
+        "side": side.value,
+        "type": type.value,
+        "time_in_force": time_till_cancellation.value,
     }
     if type == OrderType.LIMIT or type == OrderType.STOP_LIMIT:
         assert limit_price is not None, "Limit price must be set for limit orders"
@@ -176,6 +176,6 @@ def __issue_order(symbol: str,
         resp = api.submit_order(**args_dict)
         return resp
     except Exception as e:
-        print(e)
+        print(repr(e))
         return None
 
