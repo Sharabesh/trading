@@ -1,9 +1,9 @@
-"""
-Defines types for values used in the Alpaca API
-"""
+# Defines types for values used in the Alpaca API
+
 
 from enum import Enum
 from mypy_extensions import TypedDict
+from dataclasses import dataclass
 from typing import List, Any, Union, Optional
 
 class OrderType(Enum):
@@ -11,6 +11,7 @@ class OrderType(Enum):
     LIMIT = 'limit'
     STOP = 'stop'
     STOP_LIMIT = 'stop_limit'
+
 
 class TimeType(Enum):
     """
@@ -36,27 +37,29 @@ class PurchaseType(Enum):
     BUY = 'buy'
 
 
+@dataclass
+class OrderResponseType:
+    id: str  # 904837e3-3b76-47ec-b432-046db621571b,
+    client_order_id: str  # 904837e3-3b76-47ec-b432-046db621571b,
+    created_at: str  # 2018-10-05T05:48:59Z,
+    updated_at: str  # 2018-10-05T05:48:59Z,
+    submitted_at: str  # 2018-10-05T05:48:59Z,
+    filled_at: str  # 2018-10-05T05:48:59Z,
+    expired_at: str  # 2018-10-05T05:48:59Z,
+    canceled_at: str  # 2018-10-05T05:48:59Z,
+    failed_at: str  # 2018-10-05T05:48:59Z,
+    asset_id: str  # 904837e3-3b76-47ec-b432-046db621571b,
+    symbol: str  # AAPL,
+    asset_class: str  # us_equity,
+    qty: str  # 15,
+    filled_qty: str  # 0,
+    type: str  # market,
+    side: str  # buy,
+    time_in_force: str  # day,
+    limit_price: str  # 107.00,
+    stop_price: str  # 106.00,
+    filled_avg_price: str  # 106.00,
+    status: str  # accepted
 
-OrderResponseType = TypedDict('OrderResponseObj', {
-    "id": str,  # "904837e3-3b76-47ec-b432-046db621571b",
-    "client_order_id": str,  # "904837e3-3b76-47ec-b432-046db621571b",
-    "created_at": str,  # "2018-10-05T05:48:59Z",
-    "updated_at": str,  # "2018-10-05T05:48:59Z",
-    "submitted_at": str,  # "2018-10-05T05:48:59Z",
-    "filled_at": str,  # "2018-10-05T05:48:59Z",
-    "expired_at": str,  # "2018-10-05T05:48:59Z",
-    "canceled_at": str,  # "2018-10-05T05:48:59Z",
-    "failed_at": str,  # "2018-10-05T05:48:59Z",
-    "asset_id": str,  # "904837e3-3b76-47ec-b432-046db621571b",
-    "symbol": str,  # "AAPL",
-    "asset_class": str,  # "us_equity",
-    "qty": str,  # "15",
-    "filled_qty": str,  # "0",
-    "type": str,  # market",
-    "side": str,  # "buy",
-    "time_in_force": str,  # "day",
-    "limit_price": str,  # "107.00",
-    "stop_price": str,  # "106.00",
-    "filled_avg_price": str,  # "106.00",
-    "status": str,  # accepted"
-})
+
+
