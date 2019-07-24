@@ -50,7 +50,7 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Total Positions",
+    name: "Create Order",
 
     icon: "content_paste",
     component: TableList,

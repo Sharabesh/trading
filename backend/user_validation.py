@@ -9,7 +9,7 @@ from models import *
 
 
 
-def register_user(username, email, password, phone):
+def register_user(username, email, password, phone) -> bool:
     """
     Adds a user to our database.
     Returns a boolean corresponding to the status code
