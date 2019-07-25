@@ -9,6 +9,7 @@ Initializes control logic Alpaca,
 """
 import alpaca_trade_api as tradeapi # type: ignore
 import os
+from variable_typing import *
 
 # Initialize keys from the OS environment
 try:

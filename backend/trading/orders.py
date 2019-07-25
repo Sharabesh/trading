@@ -12,7 +12,7 @@ Coordinates
 
 
 """
-from trading.config import *
+from config import *
 
 def get_pending_orders() -> List[Any]:
     """

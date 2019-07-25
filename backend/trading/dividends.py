@@ -1,4 +1,4 @@
-from trading.config import *
+from config import *
 
 polygon = api.polygon
 
@@ -51,10 +51,6 @@ def get_current_positions():
 
     return pd.DataFrame.from_dict(output)
 
-def findDay(date):
-    born = datetime.strptime(date, '%Y-%M-%d').weekday()
-    return (calendar.day_name[born])
-
 
 def get_next_weeks_dates(weeks = 2):
     """
@@ -83,35 +79,62 @@ def get_next_weeks_dates(weeks = 2):
     num_weekends = 0
     while True:
         target_date = datetime.now() + timedelta(i)
+
+        # Ignore weekends
         if target_date.weekday() in {5,6}:
             num_weekends += 1
             if num_weekends == weeks:
                 break
-            continue
+            else:
+                i += 1 if target_date.weekday() == 6 else 2
+                continue
+
         output.append(convert(target_date))
         i += 1
     return output
 
 
+def filter_by_recovery(dividends):
+    """
+    Takes a dataframe and returns those stock symbols who have historically recovered well
+    after dividend distributions
+    :param dividends:
+    :return:
+    """
+    # TODO: Write this entire method;
+    return dividends
 
-
-def load_dividend_targets():
+def load_dividend_targets(weeks = 2):
     # Get 1000 top dividend yield stocks
     dividend_data = pd.read_csv("../notebooks/dividend-stocks.csv")
-    target_symbols = list(dividend_data.Symbol)
+    target_symbols = set(dividend_data.Symbol)
 
-    # Get one weeks worth of future dividends
+    # Get one months worth of future dividends
     DIVIDEND_BASE_URL = "https://www.nasdaq.com/dividend-stocks/dividend-calendar.aspx?date="
     future_dividend_dates = pd.concat([
-        pd.read_html(f"{DIVIDEND_BASE_URL + date}")[0] for date in get_next_weeks_dates(4)
+        pd.read_html(f"{DIVIDEND_BASE_URL + date}")[0] for date in get_next_weeks_dates(weeks)
     ])
-    return future_dividend_dates
+    future_dividend_dates =  future_dividend_dates.reset_index()
+    future_dividend_dates['symbol'] = future_dividend_dates["Company (Symbol)"].str.extract(r"\s\(([A-Z]+)\)$")
+
+    # Filter by top 1000 dividends of upcoming distributions
+    target_dividends = future_dividend_dates[future_dividend_dates['symbol'].isin(target_symbols)]
+
+    # Evaluate ability of each stock to "bounce back after each distribution"
+    # TODO: Write this evaluation
+    target_dividends = filter_by_recovery(target_dividends)
+
+    # Of all stocks that reasonably bounce back, sort by maximal percentage returns
+    prices = dividend_data[['Symbol', 'LastSale']]
 
 
+    #TODO Current error is that the symbols in target_dividends are not in dividend data???
+    price_and_dividend_data = pd.merge(target_dividends, prices, left_on='symbol', right_on='Symbol').drop(columns=['Symbol', 'Company (Symbol)', 'Record Date', 'Announcement Date'], axis =1)
 
+    # Note this factors in quarterly vs monthly dividends
+    price_and_dividend_data['yield'] = price_and_dividend_data['Dividend'] / price_and_dividend_data['LastSale']
 
-
-
+    return price_and_dividend_data.sort_values(by="yield", ascending=False)
 
 
 
